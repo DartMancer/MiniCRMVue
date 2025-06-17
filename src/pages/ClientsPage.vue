@@ -12,7 +12,7 @@ const clients = ref<Client[]>([
     tasks: [],
   },
   {
-    id: "1",
+    id: "2",
     name: "Иван Иванов",
     email: "ivan@example.com",
     status: "active",
