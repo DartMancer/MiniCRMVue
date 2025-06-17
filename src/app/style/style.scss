@@ -1,0 +1,43 @@
+body,
+body * {
+  font-family: "IdealistSans", sans-serif;
+  color: var(--text-color);
+  line-height: 1.5;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+svg {
+  fill: none;
+  stroke: var(--text-color);
+}
+
+.title,
+.title * {
+  font-family: "ActayWide";
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+@font-face {
+  font-family: "IdealistSans";
+  src: url("@/assets/fonts/IdealistSans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ActayWide";
+  src: url("@/assets/fonts/ActayWide/ActayWide.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
