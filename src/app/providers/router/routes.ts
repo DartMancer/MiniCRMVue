@@ -3,8 +3,8 @@ import type { RouteRecordRaw } from "vue-router";
 export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "client-page",
-    meta: { titleKey: "client-page", layout: "main" },
+    name: "clients",
+    meta: { titleKey: "clients", layout: "main" },
     component: () => import("@/pages/ClientsPage.vue"),
   },
 ];
