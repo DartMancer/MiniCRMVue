@@ -7,4 +7,10 @@ export const routes: Array<RouteRecordRaw> = [
     meta: { titleKey: "clients", layout: "main" },
     component: () => import("@/pages/ClientsPage.vue"),
   },
+  {
+    path: "/client/:id",
+    name: "client",
+    meta: { titleKey: "client", layout: "main" },
+    component: () => import("@/pages/ClientDetailPage.vue"),
+  },
 ];

@@ -1,7 +1,17 @@
 <script lang="ts" setup>
 import { Client } from "@/entities/clients";
+import { useRouter } from "vue-router";
 
 const { client } = defineProps<{ client: Client }>();
+
+const router = useRouter();
+
+const openClientDetails = () => {
+  router.push({
+    name: "client",
+    params: { id: client.id },
+  });
+};
 </script>
 
 <template>
@@ -17,7 +27,7 @@ const { client } = defineProps<{ client: Client }>();
       <a-button class="action-btn delete">
         <span class="action-btn__text open"> Удалить</span>
       </a-button>
-      <a-button class="action-btn open">
+      <a-button class="action-btn open" @click="openClientDetails">
         <span class="action-btn__text open"> Открыть</span>
       </a-button>
     </a-flex>

@@ -15,6 +15,7 @@
     "commit-msg": "npx commitlint --edit $1"
   },
   "dependencies": {
+    "lucide-vue-next": "^0.517.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.8.3",
+    "uuid": "^11.0.5",
     "vite": "^6.3.5",
     "vite-plugin-vue-devtools": "^7.6.8",
     "vue-router": "^4.5.1",

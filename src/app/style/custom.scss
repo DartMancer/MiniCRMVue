@@ -1,3 +1,15 @@
 .custom-theme {
-  width: 100%;
+  .ant-input {
+    font-family: "IdealistSans";
+    height: fit-content;
+    padding: 6px 11px;
+  }
+
+  .ant-modal-content {
+    border-radius: 20px;
+  }
+
+  .ant-form-item-label {
+    padding: 0;
+  }
 }

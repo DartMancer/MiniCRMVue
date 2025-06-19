@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { Client } from "@/entities/clients";
 import { ClientCard } from "@/widgets";
+import { AddClientModal } from "@/features/Modals";
 
 const clients = ref<Client[]>([
   {
@@ -22,6 +23,14 @@ const clients = ref<Client[]>([
 
 const clientCount = computed(() => clients.value.length);
 
+const open = ref<boolean>(false);
+
+const addClient = (client: Client) => {
+  clients.value.push(client);
+};
+
+const openModal = () => (open.value = true);
+
 watch(
   clients,
   (val) => {
@@ -29,6 +38,11 @@ watch(
   },
   { deep: true }
 );
+
+onMounted(() => {
+  const storedClients = localStorage.getItem("clients");
+  if (storedClients) clients.value = JSON.parse(storedClients);
+});
 </script>
 
 <template>
@@ -44,9 +58,10 @@ watch(
         </span>
       </a-flex>
 
-      <a-button class="add-client-btn">
+      <a-button class="add-client-btn" @click="openModal">
         <span class="add-client-btn__text title">Добавить клиента</span>
       </a-button>
+      <AddClientModal v-model:open="open" @addClient="addClient" />
     </a-flex>
 
     <a-flex class="clients-list">
