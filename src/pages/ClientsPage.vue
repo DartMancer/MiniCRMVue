@@ -1,67 +1,29 @@
 <script lang="ts" setup>
-import { ref, computed, watch, onMounted } from "vue";
-import { Client } from "@/entities/clients";
+import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import { BaseContainer } from "@/shared";
+import { useClientsStore } from "@/entities/clients";
+import { ClientsCount } from "@/features/ClientsCount";
+import { AddClientTrigger } from "@/features/AddClient";
 import { ClientCard } from "@/widgets";
-import { AddClientModal } from "@/features/Modals";
 
-const clients = ref<Client[]>([
-  {
-    id: "1",
-    name: "Иван Иванов",
-    email: "ivan@example.com",
-    status: "active",
-    tasks: [],
-  },
-  {
-    id: "2",
-    name: "Иван Иванов",
-    email: "ivan@example.com",
-    status: "active",
-    tasks: [],
-  },
-]);
-
-const clientCount = computed(() => clients.value.length);
-
-const open = ref<boolean>(false);
-
-const addClient = (client: Client) => {
-  clients.value.push(client);
-};
-
-const openModal = () => (open.value = true);
-
-watch(
-  clients,
-  (val) => {
-    localStorage.setItem("clients", JSON.stringify(val));
-  },
-  { deep: true }
-);
+const { clients } = storeToRefs(useClientsStore());
+const { loadClients } = useClientsStore();
 
 onMounted(() => {
-  const storedClients = localStorage.getItem("clients");
-  if (storedClients) clients.value = JSON.parse(storedClients);
+  loadClients();
 });
 </script>
 
 <template>
   <a-flex class="clients-page" align="center" vertical>
-    <div class="title-container">
+    <BaseContainer class="base-container">
       <span class="title">CRM - Клиенты</span>
-    </div>
-    <a-flex class="page-info-container" justify="space-between" align="center">
-      <a-flex class="clients-count-container">
-        <span class="clients-count-container__text">Количество клиентов:</span>
-        <span class="clients-count-container__count title">
-          {{ clientCount }}
-        </span>
-      </a-flex>
+    </BaseContainer>
 
-      <a-button class="add-client-btn" @click="openModal">
-        <span class="add-client-btn__text title">Добавить клиента</span>
-      </a-button>
-      <AddClientModal v-model:open="open" @addClient="addClient" />
+    <a-flex class="page-info-container" justify="space-between" align="center">
+      <ClientsCount />
+      <AddClientTrigger />
     </a-flex>
 
     <a-flex class="clients-list">
@@ -76,13 +38,9 @@ onMounted(() => {
   gap: 50px;
 }
 
-.title-container {
-  width: fit-content;
-  height: fit-content;
-  padding: 40px;
-  border-radius: 20px;
-  background-color: var(--element-color);
-  box-shadow: var(--shadow);
+.base-container {
+  width: fit-content !important;
+  padding: 40px !important;
 
   .title {
     font-size: 44px;
@@ -91,34 +49,6 @@ onMounted(() => {
 
 .page-info-container {
   width: 100%;
-
-  .clients-count-container {
-    gap: 8px;
-
-    &__text {
-      display: flex;
-      align-items: center;
-      font-size: 30px;
-    }
-
-    &__count {
-      font-size: 50px;
-    }
-  }
-
-  .add-client-btn {
-    width: fit-content;
-    height: fit-content;
-    padding: 10px 40px;
-    border: none;
-    border-radius: 20px;
-    background-color: var(--primary-color);
-    box-shadow: var(--shadow);
-
-    &__text {
-      font-size: 22px;
-    }
-  }
 }
 
 .clients-list {

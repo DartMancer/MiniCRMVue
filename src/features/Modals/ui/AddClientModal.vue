@@ -1,19 +1,21 @@
 <script lang="ts" setup>
-import { Client } from "@/entities/clients";
+import { ref, watch } from "vue";
 import { AddClientForm } from "@/features/Forms/AddClient";
 
 const open = defineModel<boolean>("open", { required: true });
-defineEmits<{ (e: "addClient", client: Client): void }>();
+const formRef = ref<InstanceType<typeof AddClientForm> | null>(null);
+
+watch(open, (val) => {
+  if (!val) return;
+  requestAnimationFrame(() => formRef.value?.focusOnFirstInput());
+});
 </script>
 
 <template>
   <a-modal v-model:open="open" :footer="null" centered>
     <a-flex class="modal-body" align="center" vertical>
       <span class="title">Добавить клиента</span>
-      <AddClientForm
-        @addClient="(client: Client) => $emit('addClient', client)"
-        @closeModal="open = false"
-      />
+      <AddClientForm ref="formRef" @closeModal="open = false" />
     </a-flex>
   </a-modal>
 </template>

@@ -1,16 +1,18 @@
 <script lang="ts" setup>
-import { Client } from "@/entities/clients";
 import { useRouter } from "vue-router";
+import { Client, useClientsStore } from "@/entities/clients";
+import { DeepReadonly } from "vue";
 
-const { client } = defineProps<{ client: Client }>();
+type ReadonlyClient = DeepReadonly<Client>;
+
+const { removeClient } = useClientsStore();
+
+const { client } = defineProps<{ client: ReadonlyClient }>();
 
 const router = useRouter();
 
 const openClientDetails = () => {
-  router.push({
-    name: "client",
-    params: { id: client.id },
-  });
+  router.push({ name: "client", params: { id: client.id } });
 };
 </script>
 
@@ -24,7 +26,7 @@ const openClientDetails = () => {
       <span class="info-text">Email: {{ client.email }}</span>
     </a-flex>
     <a-flex class="card-actions">
-      <a-button class="action-btn delete">
+      <a-button class="action-btn delete" @click="removeClient(client.id)">
         <span class="action-btn__text open"> Удалить</span>
       </a-button>
       <a-button class="action-btn open" @click="openClientDetails">

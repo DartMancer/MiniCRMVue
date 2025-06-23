@@ -1,20 +1,19 @@
 <script lang="ts" setup>
-import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
-import { Client } from "@/entities/clients";
-import { ClientFormState, validateRules } from "../models";
+import { Client, useClientsStore } from "@/entities/clients";
+import { ClientFormState, useClientForm, validateRules } from "../models";
+import { ref } from "vue";
 
-const emit = defineEmits<{
-  (e: "addClient", client: Client): void;
-  (e: "closeModal"): void;
-}>();
+const { addClient } = useClientsStore();
+const { formState, loading } = useClientForm();
 
-const formState = ref<ClientFormState>({
-  name: "",
-  email: "",
-});
+const emit = defineEmits<{ (e: "closeModal"): void }>();
 
-const loading = ref<boolean>(false);
+const nameInput = ref<HTMLInputElement | null>(null);
+
+const focusOnFirstInput = () => {
+  nameInput.value?.focus();
+};
 
 const onFinish = (val: ClientFormState) => {
   loading.value = true;
@@ -28,7 +27,7 @@ const onFinish = (val: ClientFormState) => {
       tasks: [],
     };
 
-    emit("addClient", client);
+    addClient(client);
     emit("closeModal");
     formState.value = { name: "", email: "" };
   } finally {
@@ -39,6 +38,8 @@ const onFinish = (val: ClientFormState) => {
 const onFinishFailed = (value: any) => {
   console.log("Error:", value);
 };
+
+defineExpose({ focusOnFirstInput });
 </script>
 
 <template>
@@ -53,6 +54,7 @@ const onFinishFailed = (value: any) => {
     <a-flex vertical>
       <a-form-item name="name" label="Имя клиента" vertical>
         <a-input
+          ref="nameInput"
           v-model:value="formState.name"
           class="input"
           placeholder="Введите имя клиента"
