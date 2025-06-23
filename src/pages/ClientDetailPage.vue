@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
 import { BaseContainer } from "@/shared";
-import { useClientsStore } from "@/entities/clients";
+
 import {
   ClientDetailContact,
   ClientDetailHeader,
@@ -10,15 +9,9 @@ import {
 import { AddTaskForm, TaskForm } from "@/features/ClientTasks";
 import { useRoute } from "vue-router";
 
-const { loadClients } = useClientsStore();
-
 const route = useRoute();
 
 const clientId = route.params.id.toString();
-
-onMounted(() => {
-  loadClients();
-});
 </script>
 
 <template>

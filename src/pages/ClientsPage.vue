@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { BaseContainer } from "@/shared";
 import { useClientsStore } from "@/entities/clients";
@@ -8,11 +7,6 @@ import { AddClientTrigger } from "@/features/AddClient";
 import { ClientCard } from "@/widgets";
 
 const { clients } = storeToRefs(useClientsStore());
-const { loadClients } = useClientsStore();
-
-onMounted(() => {
-  loadClients();
-});
 </script>
 
 <template>

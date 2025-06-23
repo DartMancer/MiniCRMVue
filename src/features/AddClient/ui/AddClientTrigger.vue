@@ -1,17 +1,10 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import { useClientsStore } from "@/entities/clients";
+import { ref } from "vue";
 import { AddClientModal } from "@/features/Modals";
-
-const { loadClients } = useClientsStore();
 
 const open = ref<boolean>(false);
 
 const openModal = () => (open.value = true);
-
-onMounted(() => {
-  loadClients();
-});
 </script>
 
 <template>
