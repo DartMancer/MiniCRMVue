@@ -1,6 +1,6 @@
 import { computed, readonly, ref, toRaw, watch } from "vue";
 import { defineStore } from "pinia";
-import { Client } from "../models";
+import { Client, Task } from "../models";
 
 export const useClientsStore = defineStore("clients", () => {
   const clients = ref<Client[]>([]);
@@ -21,6 +21,10 @@ export const useClientsStore = defineStore("clients", () => {
     clients.value = clients.value.filter((c) => c.id !== id);
   };
 
+  const addTask = (id: string, task: Task) => {
+    getClientById(id)?.tasks.push(task);
+  };
+
   watch(
     clients,
     () => localStorage.setItem("clients", JSON.stringify(toRaw(clients.value))),
@@ -34,5 +38,6 @@ export const useClientsStore = defineStore("clients", () => {
     getClient: getClientById,
     addClient,
     removeClient,
+    addTask,
   };
 });

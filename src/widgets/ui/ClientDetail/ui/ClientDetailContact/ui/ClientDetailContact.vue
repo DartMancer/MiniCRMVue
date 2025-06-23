@@ -1,14 +1,11 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useRoute } from "vue-router";
 import { BaseContainer } from "@/shared";
 import { useClientsStore } from "@/entities/clients";
 
 const { getClient } = useClientsStore();
 
-const route = useRoute();
-
-const clientId = route.params.id;
+const { clientId } = defineProps<{ clientId: string }>();
 const currentClient = computed(() => getClient(clientId.toString()));
 </script>
 

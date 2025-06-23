@@ -1,18 +1,24 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
+import { v4 as uuidv4 } from "uuid";
+import { Task, useClientsStore } from "@/entities/clients";
 
-const taskName = ref<string>("");
+const { addTask } = useClientsStore();
+
+const { clientId } = defineProps<{ clientId: string }>();
 
 const disabledBtn = computed(() => !taskName.value.trim());
 
-const addNewTask = () => {
-  // const newTask: Task = {
-  //   id: uuidv4(),
-  //   text: taskName.value,
-  //   completed: false,
-  // };
+const taskName = ref<string>("");
 
-  // currentClient.value?.tasks.push(newTask);
+const addNewTask = () => {
+  const newTask: Task = {
+    id: uuidv4(),
+    text: taskName.value,
+    completed: false,
+  };
+
+  addTask(clientId, newTask);
   taskName.value = "";
 };
 </script>

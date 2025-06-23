@@ -8,8 +8,13 @@ import {
   ClientDetailInfo,
 } from "@/widgets/ui/ClientDetail";
 import { AddTaskForm, TaskForm } from "@/features/ClientTasks";
+import { useRoute } from "vue-router";
 
 const { loadClients } = useClientsStore();
+
+const route = useRoute();
+
+const clientId = route.params.id.toString();
 
 onMounted(() => {
   loadClients();
@@ -20,14 +25,14 @@ onMounted(() => {
   <a-flex class="client-page" vertical>
     <ClientDetailHeader />
     <a-flex class="client-info-container" align="center">
-      <ClientDetailInfo />
-      <ClientDetailContact />
+      <ClientDetailInfo :clientId="clientId" />
+      <ClientDetailContact :clientId="clientId" />
     </a-flex>
 
     <BaseContainer class="base-container">
       <span class="title"> Список задач</span>
-      <TaskForm />
-      <AddTaskForm />
+      <TaskForm :clientId="clientId" />
+      <AddTaskForm :clientId="clientId" />
     </BaseContainer>
   </a-flex>
 </template>
