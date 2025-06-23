@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { BaseContainer } from "@/shared";
+import { BaseContainer } from "@/shared/ui/Other";
 import { useClientsStore } from "@/entities/clients";
 
 const { getClient } = useClientsStore();

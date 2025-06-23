@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import { Client, useClientsStore } from "@/entities/clients";
 import { DeepReadonly } from "vue";
+import { BaseContainer } from "@/shared/ui/Other";
 
 type ReadonlyClient = DeepReadonly<Client>;
 
@@ -17,10 +18,13 @@ const openClientDetails = () => {
 </script>
 
 <template>
-  <a-flex class="client-card" justify="space-between" vertical>
-    <span class="title">
-      {{ client.name }}
-    </span>
+  <BaseContainer
+    class="base-container"
+    @click="openClientDetails"
+    full-w
+    shadow
+  >
+    <span class="title">{{ client.name }} </span>
     <a-flex class="card-info" vertical>
       <span class="info-text">Статус: {{ client.status }}</span>
       <span class="info-text">Email: {{ client.email }}</span>
@@ -33,12 +37,16 @@ const openClientDetails = () => {
         <span class="action-btn__text open"> Открыть</span>
       </a-button>
     </a-flex>
-  </a-flex>
+  </BaseContainer>
 </template>
 
 <style lang="scss" scoped>
-.client-card {
-  width: 100%;
+.base-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
   height: fit-content;
   gap: 20px;
   padding: 20px;
@@ -87,6 +95,16 @@ const openClientDetails = () => {
 
         .action-btn__text {
           color: #ff7c7c;
+        }
+      }
+
+      &:hover {
+        &.open {
+          background-color: rgba($color: #5faf20, $alpha: 0.3);
+        }
+
+        &.delete {
+          background-color: rgba($color: #ff7c7c, $alpha: 0.3);
         }
       }
     }

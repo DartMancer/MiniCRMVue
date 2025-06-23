@@ -29,5 +29,9 @@ const openModal = () => (open.value = true);
   &__text {
     font-size: 22px;
   }
+
+  &:hover {
+    background-color: var(--hover-primary-color);
+  }
 }
 </style>

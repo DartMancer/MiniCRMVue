@@ -2,6 +2,7 @@ import { computed, defineAsyncComponent } from "vue";
 import { useRoute } from "vue-router";
 
 const layouts = {
+  auth: defineAsyncComponent(() => import("../ui/AuthLayout.vue")),
   main: defineAsyncComponent(() => import("../ui/MainLayout.vue")),
 };
 

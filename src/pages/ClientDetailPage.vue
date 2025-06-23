@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import { BaseContainer } from "@/shared";
-
+import { useRoute } from "vue-router";
+import { BaseContainer } from "@/shared/ui/Other";
+import { AddTaskForm, TaskForm } from "@/features/ClientTasks";
 import {
   ClientDetailContact,
   ClientDetailHeader,
   ClientDetailInfo,
-} from "@/widgets/ui/ClientDetail";
-import { AddTaskForm, TaskForm } from "@/features/ClientTasks";
-import { useRoute } from "vue-router";
+} from "@/widgets/ClientDetail";
 
 const route = useRoute();
 

@@ -1,3 +1,3 @@
 export * from "./RegistrationFormState";
-export * from "./useClientForm";
+export * from "./useRegForm";
 export * from "./validateRules";

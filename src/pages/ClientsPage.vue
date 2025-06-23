@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
-import { BaseContainer } from "@/shared";
+import { BaseContainer } from "@/shared/ui/Other";
 import { useClientsStore } from "@/entities/clients";
 import { ClientsCount } from "@/features/ClientsCount";
 import { AddClientTrigger } from "@/features/AddClient";
-import { ClientCard } from "@/widgets";
+import { ClientCard } from "@/widgets/ClientCard";
 
 const { clients } = storeToRefs(useClientsStore());
 </script>
@@ -33,7 +33,6 @@ const { clients } = storeToRefs(useClientsStore());
 }
 
 .base-container {
-  width: fit-content !important;
   padding: 40px !important;
 
   .title {

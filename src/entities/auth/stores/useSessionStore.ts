@@ -13,18 +13,25 @@ export const useSessionStore = defineStore("session", () => {
 
   const { loginApi, registerApi } = useUserStorage();
 
-  const login = (data: LoginUser) => {
+  const login = (data: LoginUser): boolean => {
     const res = loginApi(data);
-    if (!res.success && res.error) return errorMessage(res.error);
+    if (!res.success && res.error) {
+      errorMessage(res.error);
+      return res.success;
+    }
 
     user.value = res.data;
+    return res.success;
   };
 
-  const registration = (data: StoredUser) => {
+  const registration = (data: StoredUser): boolean => {
     const res = registerApi(data);
-    if (!res.success && res.error) return errorMessage(res.error);
+    if (!res.success && res.error) {
+      errorMessage(res.error);
+      return res.success;
+    }
 
-    return res;
+    return res.success;
   };
 
   const logout = () => (user.value = null);

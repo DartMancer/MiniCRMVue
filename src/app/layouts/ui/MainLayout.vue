@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="main-layout-wrapper">
     <div class="main-layout">
@@ -21,14 +19,15 @@
   background-color: #f8f8f8;
 
   .main-layout {
-    position: relative;
-    width: 100%;
-    max-width: 1440px;
-    height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    gap: 50px;
+    width: 100%;
+    max-width: 1440px;
+    height: 100%;
     padding-bottom: 40px;
   }
 }

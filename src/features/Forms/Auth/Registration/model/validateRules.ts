@@ -21,4 +21,25 @@ export const validateRules: Record<string, Rule[]> = {
       message: "Поле обязательно для заполнения",
     },
   ],
+
+  password: [
+    {
+      min: 8,
+      trigger: ["change", "blur"],
+      message: "Пароль должен содержать не меньше 8 символов",
+    },
+    {
+      required: true,
+      trigger: ["change", "blur"],
+      message: "Поле обязательно для заполнения",
+    },
+  ],
+
+  role: [
+    {
+      required: true,
+      trigger: "blur",
+      message: "Поле обязательно для заполнения",
+    },
+  ],
 };

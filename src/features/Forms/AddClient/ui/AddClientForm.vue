@@ -1,8 +1,11 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { Client, useClientsStore } from "@/entities/clients";
 import { ClientFormState, useClientForm, validateRules } from "../models";
-import { ref } from "vue";
+import { Input } from "@/shared/ui/Other";
+import { MailInput } from "@/widgets/MailInput";
+import { defaultClientForm } from "@/shared/constants";
 
 const { addClient } = useClientsStore();
 const { formState, loading } = useClientForm();
@@ -29,7 +32,7 @@ const onFinish = (val: ClientFormState) => {
 
     addClient(client);
     emit("closeModal");
-    formState.value = { name: "", email: "" };
+    Object.assign(formState.value, defaultClientForm);
   } finally {
     loading.value = false;
   }
@@ -52,29 +55,30 @@ defineExpose({ focusOnFirstInput });
     @finishFailed="onFinishFailed"
   >
     <a-flex vertical>
-      <a-form-item name="name" label="Имя клиента" vertical>
-        <a-input
-          ref="nameInput"
-          v-model:value="formState.name"
-          class="input"
-          placeholder="Введите имя клиента"
-        />
-      </a-form-item>
-      <a-form-item name="email" label="Почта клиента" vertical>
-        <a-input
-          v-model:value="formState.email"
-          class="input"
-          placeholder="Введите почту клиента"
-        />
-      </a-form-item>
+      <Input
+        ref="nameInput"
+        v-model:value="formState.name"
+        name="name"
+        label="Имя клиента"
+        placeholder="Введите имя клиента"
+        form
+      />
+
+      <MailInput
+        v-model:value="formState.email"
+        name="email"
+        label="Почта клиента"
+        placeholder="Введите почту клиента"
+        form
+      />
     </a-flex>
 
     <a-flex class="form-actions" justify="flex-end">
       <a-button class="action-btn delete" @click="emit('closeModal')">
-        <span class="action-btn__text open">Отмена</span>
+        <span class="action-btn__text delete">Отмена</span>
       </a-button>
-      <a-button class="action-btn open" html-type="submit" :loading="loading">
-        <span class="action-btn__text open">Добавить</span>
+      <a-button class="action-btn add" html-type="submit" :loading="loading">
+        <span class="action-btn__text add">Добавить</span>
       </a-button>
     </a-flex>
   </a-form>
@@ -87,14 +91,6 @@ defineExpose({ focusOnFirstInput });
   width: 100%;
   gap: 30px;
   padding: 0 30px;
-}
-
-.input {
-  width: 100%;
-  border-radius: 20px;
-  border-top-left-radius: 8px;
-  border: 2px solid var(--text-color);
-  box-shadow: var(--shadow);
 }
 
 .form-actions {
@@ -110,7 +106,7 @@ defineExpose({ focusOnFirstInput });
       font-size: 14px;
     }
 
-    &.open {
+    &.add {
       border-color: #5faf20;
       background-color: rgba($color: #5faf20, $alpha: 0.2);
 
@@ -125,6 +121,16 @@ defineExpose({ focusOnFirstInput });
 
       .action-btn__text {
         color: #ff7c7c;
+      }
+    }
+
+    &:hover {
+      &.add {
+        background-color: rgba($color: #5faf20, $alpha: 0.3);
+      }
+
+      &.delete {
+        background-color: rgba($color: #ff7c7c, $alpha: 0.3);
       }
     }
   }
