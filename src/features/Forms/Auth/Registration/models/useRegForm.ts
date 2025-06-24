@@ -29,8 +29,10 @@ export const useRegForm = () => {
         role: val.role!,
       };
 
-      if (registration(user)) router.push("/");
-      Object.assign(formState.value, defaultRegForm);
+      if (registration(user)) {
+        router.push("/");
+        Object.assign(formState.value, defaultRegForm);
+      }
     } finally {
       loading.value = false;
     }

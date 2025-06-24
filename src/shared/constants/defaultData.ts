@@ -1,5 +1,6 @@
 import { ClientFormState } from "@/features/Forms/AddClient/models";
-import { RegistrationFormState } from "@/features/Forms/Auth/Registration/model";
+import { LoginFormState } from "@/features/Forms/Auth/Login/models";
+import { RegistrationFormState } from "@/features/Forms/Auth/Registration/models";
 
 export const defaultClientForm: ClientFormState = { name: "", email: "" };
 
@@ -8,4 +9,9 @@ export const defaultRegForm: RegistrationFormState = {
   email: "",
   password: "",
   role: null,
+};
+
+export const defaultLoginForm: LoginFormState = {
+  email: "",
+  password: "",
 };

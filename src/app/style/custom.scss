@@ -13,7 +13,13 @@
     padding: 0;
   }
 
+  .ant-message-notice-content {
+    .anticon-close-circle svg {
+      fill: var(--error-color) !important;
+    }
+  }
+
   .anticon svg {
-    fill: var(--text-color);
+    fill: rgba($color: #000000, $alpha: 0.7);
   }
 }

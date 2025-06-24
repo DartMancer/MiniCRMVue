@@ -1,11 +1,11 @@
 <script setup lang="ts">
-// import { LoginForm } from "@/features/Forms/Auth/Login";
+import { LoginForm } from "@/features/Forms/Auth/Login";
 </script>
 
 <template>
   <a-flex class="login-page" align="center" gap="50" vertical>
     <span class="title">Вход</span>
-    <!-- <LoginForm /> -->
+    <LoginForm />
   </a-flex>
 </template>
 
