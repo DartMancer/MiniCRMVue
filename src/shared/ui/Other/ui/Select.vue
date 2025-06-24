@@ -1,11 +1,15 @@
 <script lang="ts" setup>
+import { DeepReadonly } from "vue";
 import { SelectOption } from "@/shared/types";
+
+type ReadonlyOptions = DeepReadonly<SelectOption[]>;
+
 const value = defineModel<string | null>("value", { required: true });
 
 defineProps<{
   name: string | string[];
   placeholder: string;
-  options: SelectOption[];
+  options: SelectOption[] | ReadonlyOptions;
   label?: string | null;
   form?: boolean;
   rules?: any;

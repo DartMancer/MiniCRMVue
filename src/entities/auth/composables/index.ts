@@ -1,1 +1,1 @@
-export * from "./useUserStorage";
+export * from "./useAuthStorage";

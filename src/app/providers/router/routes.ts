@@ -4,13 +4,23 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "clients",
-    meta: { titleKey: "CRM - Клиенты", layout: "main" },
+    meta: {
+      titleKey: "CRM - Клиенты",
+      layout: "main",
+      requiresAuth: true,
+      requiresRole: "admin",
+    },
     component: () => import("@/pages/ClientsPage.vue"),
   },
   {
     path: "/client/:id",
     name: "client",
-    meta: { titleKey: "Детализация", layout: "main" },
+    meta: {
+      titleKey: "Детализация",
+      layout: "main",
+      requiresAuth: true,
+      requiresRole: "admin",
+    },
     component: () => import("@/pages/ClientDetailPage.vue"),
   },
   {
@@ -24,5 +34,11 @@ export const routes: Array<RouteRecordRaw> = [
     name: "login",
     meta: { titleKey: "Вход", layout: "auth" },
     component: () => import("@/pages/LoginPage.vue"),
+  },
+  {
+    path: "/account",
+    name: "account",
+    meta: { titleKey: "Аккаунт", layout: "main" },
+    component: () => import("@/pages/AccountPage.vue"),
   },
 ];

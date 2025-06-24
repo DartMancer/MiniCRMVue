@@ -20,7 +20,7 @@ import { BaseContainer } from "@/shared/ui/Other";
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  background-color: #f8f8f8;
+  background-color: var(--background-color);
 
   .auth-layout {
     position: relative;

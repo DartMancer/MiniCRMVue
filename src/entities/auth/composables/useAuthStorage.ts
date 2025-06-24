@@ -1,10 +1,9 @@
-import { readonly } from "vue";
 import { useStorage } from "@vueuse/core";
+import { Response } from "@/shared/types";
 import { User } from "../models";
 import { LoginUser, StoredUser } from "../types";
-import { Response } from "@/shared/types";
 
-export const useUserStorage = () => {
+export const useAuthStorage = () => {
   const users = useStorage<StoredUser[]>("users", []);
 
   const registerApi = (data: StoredUser): Response => {
@@ -19,10 +18,6 @@ export const useUserStorage = () => {
     users.value.push(data);
     return { success: true };
   };
-
-  //   const getUserById = (id: string) => {
-  //     return users.value.find((u) => u.id === id);
-  //   };
 
   const getUserByEmail = (email: string) => {
     return users.value.find((u) => u.email === email);
@@ -44,7 +39,7 @@ export const useUserStorage = () => {
   };
 
   return {
-    users: readonly(users),
+    users,
     registerApi,
     getUserByEmail,
     loginApi,

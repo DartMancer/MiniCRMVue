@@ -26,7 +26,7 @@ export const useLoginForm = () => {
       };
 
       if (login(user)) {
-        router.push("/");
+        router.push("/account");
         Object.assign(formState.value, defaultLoginForm);
       }
     } finally {

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
-import { Client, useClientsStore } from "@/entities/clients";
 import { DeepReadonly } from "vue";
+import { useRouter } from "vue-router";
 import { BaseContainer } from "@/shared/ui/Other";
+import { Client, useClientsStore } from "@/entities/clients";
 
 type ReadonlyClient = DeepReadonly<Client>;
 

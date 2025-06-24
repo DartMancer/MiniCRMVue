@@ -12,12 +12,21 @@ export const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  const { isLoggedIn } = storeToRefs(useSessionStore());
+  const { user, isLoggedIn } = storeToRefs(useSessionStore());
 
   const publicPages = ["/login", "/register"];
   const isPublic = publicPages.includes(to.path);
 
   if (!isPublic && !isLoggedIn.value) return "/login";
   if (isPublic && isLoggedIn.value) return "/clients";
+  if (to.meta.requiresAuth && !user.value) return "/login";
+  if (
+    to.meta.requiresRole &&
+    user.value &&
+    user.value.role !== to.meta.requiresRole
+  ) {
+    return "/forbidden";
+  }
+
   return true;
 });

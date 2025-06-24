@@ -17,9 +17,18 @@
     .anticon-close-circle svg {
       fill: var(--error-color) !important;
     }
+
+    .anticon-check-circle svg {
+      fill: var(--hover-primary-color) !important;
+    }
   }
 
   .anticon svg {
     fill: rgba($color: #000000, $alpha: 0.7);
+  }
+
+  .ant-collapse {
+    background-color: var(--background-color) !important;
+    box-shadow: var(--shadow);
   }
 }

@@ -1,17 +1,19 @@
 import { computed, readonly } from "vue";
-import { useStorage } from "@vueuse/core";
+import { useStorage, StorageSerializers } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { User } from "../models";
-import { useUserStorage } from "../composables";
-import { LoginUser, StoredUser } from "../types";
 import { errorMessage } from "@/shared/utils";
+import { User } from "../models";
+import { useAuthStorage } from "../composables";
+import { LoginUser, StoredUser } from "../types";
 
 export const useSessionStore = defineStore("session", () => {
-  const user = useStorage<User | null>("user", null);
+  const user = useStorage<User | null>("user", null, undefined, {
+    serializer: StorageSerializers.object,
+  });
 
   const isLoggedIn = computed(() => !!user.value);
 
-  const { loginApi, registerApi } = useUserStorage();
+  const { loginApi, registerApi } = useAuthStorage();
 
   const login = (data: LoginUser): boolean => {
     const res = loginApi(data);

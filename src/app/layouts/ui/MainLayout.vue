@@ -1,7 +1,14 @@
+<script setup lang="ts">
+import { AppHeader } from "@/widgets/Header";
+</script>
+
 <template>
-  <div class="main-layout-wrapper">
-    <div class="main-layout">
-      <slot />
+  <div>
+    <AppHeader />
+    <div class="main-layout-wrapper">
+      <div class="main-layout">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
@@ -16,7 +23,7 @@
   min-height: 100vh;
   padding: 60px;
   height: fit-content;
-  background-color: #f8f8f8;
+  background-color: var(--background-color);
 
   .main-layout {
     display: flex;
