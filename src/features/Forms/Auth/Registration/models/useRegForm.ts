@@ -30,7 +30,7 @@ export const useRegForm = () => {
       };
 
       if (registration(user)) {
-        router.push("/");
+        router.push("/login");
         Object.assign(formState.value, defaultRegForm);
       }
     } finally {
