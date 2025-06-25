@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { BaseButton } from "@/shared/ui/Button";
 import { Input, PasswordInput, Select } from "@/shared/ui/Other";
 import { MailInput } from "@/widgets/MailInput";
 import { useRegForm, validateRules } from "../models";
@@ -56,9 +57,13 @@ const { formState, loading, options, onFinish, onFinishFailed, routeLogin } =
       </a-flex>
     </a-flex>
 
-    <a-button class="action-btn" html-type="submit" :loading="loading">
-      <span class="action-btn__text">Зарегистрироваться</span>
-    </a-button>
+    <BaseButton
+      text="Зарегистрироваться"
+      html-type="submit"
+      :loading="loading"
+      success
+      full-w
+    />
   </a-form>
 </template>
 
@@ -83,24 +88,5 @@ const { formState, loading, options, onFinish, onFinishFailed, routeLogin } =
 
 .login {
   text-decoration: underline;
-}
-
-.action-btn {
-  width: 100%;
-  height: fit-content;
-  padding: 5px 20px;
-  border-radius: 20px;
-  border-color: #5faf20;
-  background-color: rgba($color: #5faf20, $alpha: 0.2);
-
-  &__text {
-    font-size: 14px;
-    color: #5faf20;
-  }
-
-  &:hover {
-    border-color: #5faf20;
-    background-color: rgba($color: #5faf20, $alpha: 0.3);
-  }
 }
 </style>

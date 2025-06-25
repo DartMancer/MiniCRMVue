@@ -1,14 +1,11 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { v4 as uuidv4 } from "uuid";
-import { Client, useClientsStore } from "@/entities/clients";
-import { ClientFormState, useClientForm, validateRules } from "../models";
 import { Input } from "@/shared/ui/Other";
+import { BaseButton } from "@/shared/ui/Button";
 import { MailInput } from "@/widgets/MailInput";
-import { defaultClientForm } from "@/shared/constants";
+import { ClientFormState, useClientForm, validateRules } from "../models";
 
-const { addClient } = useClientsStore();
-const { formState, loading } = useClientForm();
+const { formState, loading, onFinish, onFinishFailed } = useClientForm();
 
 const emit = defineEmits<{ (e: "closeModal"): void }>();
 
@@ -18,28 +15,9 @@ const focusOnFirstInput = () => {
   nameInput.value?.focus();
 };
 
-const onFinish = (val: ClientFormState) => {
-  loading.value = true;
-
-  try {
-    const client: Client = {
-      id: uuidv4(),
-      name: val.name,
-      email: val.email,
-      status: "active",
-      tasks: [],
-    };
-
-    addClient(client);
-    emit("closeModal");
-    Object.assign(formState.value, defaultClientForm);
-  } finally {
-    loading.value = false;
-  }
-};
-
-const onFinishFailed = (value: any) => {
-  console.log("Error:", value);
+const handleFinish = (val: ClientFormState) => {
+  onFinish(val);
+  emit("closeModal");
 };
 
 defineExpose({ focusOnFirstInput });
@@ -51,7 +29,7 @@ defineExpose({ focusOnFirstInput });
     class="input-container"
     layout="vertical"
     :rules="validateRules"
-    @finish="onFinish"
+    @finish="handleFinish"
     @finishFailed="onFinishFailed"
   >
     <a-flex vertical>
@@ -74,12 +52,13 @@ defineExpose({ focusOnFirstInput });
     </a-flex>
 
     <a-flex class="form-actions" justify="flex-end">
-      <a-button class="action-btn delete" @click="emit('closeModal')">
-        <span class="action-btn__text delete">Отмена</span>
-      </a-button>
-      <a-button class="action-btn add" html-type="submit" :loading="loading">
-        <span class="action-btn__text add">Добавить</span>
-      </a-button>
+      <BaseButton text="Отмена" @click="emit('closeModal')" error />
+      <BaseButton
+        text="Добавить"
+        html-type="submit"
+        :loading="loading"
+        success
+      />
     </a-flex>
   </a-form>
 </template>
@@ -95,44 +74,5 @@ defineExpose({ focusOnFirstInput });
 
 .form-actions {
   gap: 10px;
-
-  .action-btn {
-    width: fit-content;
-    height: fit-content;
-    padding: 5px 20px;
-    border-radius: 20px;
-
-    &__text {
-      font-size: 14px;
-    }
-
-    &.add {
-      border-color: #5faf20;
-      background-color: rgba($color: #5faf20, $alpha: 0.2);
-
-      .action-btn__text {
-        color: #5faf20;
-      }
-    }
-
-    &.delete {
-      border-color: #ff7c7c;
-      background-color: rgba($color: #ff7c7c, $alpha: 0.2);
-
-      .action-btn__text {
-        color: #ff7c7c;
-      }
-    }
-
-    &:hover {
-      &.add {
-        background-color: rgba($color: #5faf20, $alpha: 0.3);
-      }
-
-      &.delete {
-        background-color: rgba($color: #ff7c7c, $alpha: 0.3);
-      }
-    }
-  }
 }
 </style>

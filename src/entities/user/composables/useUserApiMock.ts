@@ -26,12 +26,15 @@ export const useUserApiMock = () => {
   };
 
   const deleteUserApi = (id: string): Response => {
+    console.log(users.value, id);
+
     const index = users.value.findIndex((u) => u.id === id);
     if (index === -1) {
       return { success: false, error: "Пользователь не найден" };
     }
 
     users.value.splice(index, 1);
+    user.value = null;
     return { success: true };
   };
 

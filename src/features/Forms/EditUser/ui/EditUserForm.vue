@@ -2,6 +2,7 @@
 import { Input, Select } from "@/shared/ui/Other";
 import { MailInput } from "@/widgets/MailInput";
 import { useAccountBody } from "../model";
+import { BaseButton } from "@/shared/ui/Button";
 
 const { formState, options, loading, isUpdated, onFinish, onFinishFailed } =
   useAccountBody();
@@ -37,14 +38,14 @@ const { formState, options, loading, isUpdated, onFinish, onFinishFailed } =
       form
     />
 
-    <a-button
-      :class="['action-btn', { disabled: !isUpdated }]"
+    <BaseButton
+      text="Редактировать"
       html-type="submit"
       :loading
       :disabled="!isUpdated"
-    >
-      <span class="action-btn__text">Редактировать</span>
-    </a-button>
+      success
+      full-w
+    />
   </a-form>
 </template>
 
@@ -54,12 +55,12 @@ const { formState, options, loading, isUpdated, onFinish, onFinishFailed } =
   height: fit-content;
   padding: 5px 20px;
   border-radius: 20px;
-  border-color: #5faf20;
+  border-color: var(--success-color);
   background-color: rgba($color: #5faf20, $alpha: 0.2);
 
   &__text {
     font-size: 14px;
-    color: #5faf20;
+    color: var(--success-color);
   }
 
   &.disabled {
@@ -72,7 +73,7 @@ const { formState, options, loading, isUpdated, onFinish, onFinishFailed } =
   }
 
   &:hover:not(.disabled) {
-    border-color: #5faf20;
+    border-color: var(--success-color);
     background-color: rgba($color: #5faf20, $alpha: 0.3);
   }
 }

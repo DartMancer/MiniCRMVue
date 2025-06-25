@@ -2,12 +2,17 @@ import { defineStore } from "pinia";
 import { EditUser } from "../types";
 import { useUserApiMock } from "../composables";
 import { errorMessage, successMessage } from "@/shared/utils";
+import { useRouter } from "vue-router";
+import { useSessionStore } from "@/entities/auth";
 
 export const useUserStore = defineStore("userStore", () => {
+  const router = useRouter();
+  const { user } = useSessionStore();
   const { updateUserApi, deleteUserApi } = useUserApiMock();
 
-  const editUser = (id: string, data: EditUser): boolean => {
-    const res = updateUserApi(id, data);
+  const editUser = (data: EditUser): boolean => {
+    if (!user) return false;
+    const res = updateUserApi(user.id, data);
 
     if (!res.success && res.error) {
       errorMessage(res.error);
@@ -18,14 +23,16 @@ export const useUserStore = defineStore("userStore", () => {
     return res.success;
   };
 
-  const deleteUser = (id: string): boolean => {
-    const res = deleteUserApi(id);
+  const deleteUser = (): boolean => {
+    if (!user) return false;
+    const res = deleteUserApi(user.id);
 
     if (!res.success && res.error) {
       errorMessage(res.error);
       return res.success;
     }
 
+    router.push("/registration");
     successMessage("Аккаунт удален");
     return res.success;
   };

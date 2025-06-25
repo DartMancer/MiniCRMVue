@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { BaseContainer } from "@/shared/ui/Other";
 import { EditUserForm } from "@/features/Forms/EditUser";
+import { DeleteAccountTrigger } from "@/features/DeleteAccount";
 </script>
 
 <template>
@@ -11,6 +12,8 @@ import { EditUserForm } from "@/features/Forms/EditUser";
         <EditUserForm />
       </a-collapse-panel>
     </a-collapse>
+
+    <DeleteAccountTrigger />
   </BaseContainer>
 </template>
 

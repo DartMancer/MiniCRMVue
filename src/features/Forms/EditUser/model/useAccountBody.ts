@@ -9,7 +9,7 @@ import { EditUserFormState } from "./EditUserFormState";
 
 export const useAccountBody = () => {
   const { user } = storeToRefs(useSessionStore());
-  const { editUser, deleteUser } = useUserStore();
+  const { editUser } = useUserStore();
 
   const initialFormState = ref<EditUserFormState>(defaultEditUserForm);
   const formState = ref<EditUserFormState>(defaultEditUserForm);
@@ -34,10 +34,8 @@ export const useAccountBody = () => {
       role: fs.role ?? user.value.role,
     };
 
-    return editUser(user.value!.id, edit);
+    return editUser(edit);
   };
-
-  const handleDelete = () => deleteUser(user.value!.id);
 
   const onFinish = () => {
     loading.value = true;
@@ -70,7 +68,6 @@ export const useAccountBody = () => {
     options: readonly(options),
     loading: readonly(loading),
     handleEdit,
-    handleDelete,
     onFinish,
     onFinishFailed,
   };

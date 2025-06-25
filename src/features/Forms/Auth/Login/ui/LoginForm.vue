@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PasswordInput } from "@/shared/ui/Other";
+import { BaseButton } from "@/shared/ui/Button";
 import { MailInput } from "@/widgets/MailInput";
 import { useLoginForm, validateRules } from "../models";
 
@@ -40,9 +41,13 @@ const { formState, loading, onFinish, onFinishFailed, routeReg } =
       </a-flex>
     </a-flex>
 
-    <a-button class="action-btn" html-type="submit" :loading="loading">
-      <span class="action-btn__text">Войти</span>
-    </a-button>
+    <BaseButton
+      text="Войти"
+      html-type="submit"
+      :loading="loading"
+      success
+      full-w
+    />
   </a-form>
 </template>
 
@@ -74,16 +79,16 @@ const { formState, loading, onFinish, onFinishFailed, routeReg } =
   height: fit-content;
   padding: 5px 20px;
   border-radius: 20px;
-  border-color: #5faf20;
+  border-color: var(--success-color);
   background-color: rgba($color: #5faf20, $alpha: 0.2);
 
   &__text {
     font-size: 14px;
-    color: #5faf20;
+    color: var(--success-color);
   }
 
   &:hover {
-    border-color: #5faf20;
+    border-color: var(--success-color);
     background-color: rgba($color: #5faf20, $alpha: 0.3);
   }
 }

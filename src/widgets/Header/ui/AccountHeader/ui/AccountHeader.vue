@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import { useSessionStore } from "@/entities/auth";
+import { BaseButton } from "@/shared/ui/Button";
 import { BaseContainer } from "@/shared/ui/Other";
+import { useSessionStore } from "@/entities/auth";
 
 const { logout } = useSessionStore();
 
@@ -17,9 +18,7 @@ const handleLogout = () => {
   <BaseContainer class="base-container" full-w>
     <a-flex class="acc-header-container" justify="space-between">
       <span class="title">Личный кабинет</span>
-      <a-button class="logout-btn" @click="handleLogout">
-        <span class="logout">Выйти из аккаунта</span>
-      </a-button>
+      <BaseButton text="Выйти из аккаунта" @click="handleLogout" error />
     </a-flex>
   </BaseContainer>
 </template>

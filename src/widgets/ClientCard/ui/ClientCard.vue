@@ -3,6 +3,7 @@ import { DeepReadonly } from "vue";
 import { useRouter } from "vue-router";
 import { BaseContainer } from "@/shared/ui/Other";
 import { Client, useClientsStore } from "@/entities/clients";
+import { BaseButton } from "@/shared/ui/Button";
 
 type ReadonlyClient = DeepReadonly<Client>;
 
@@ -30,12 +31,8 @@ const openClientDetails = () => {
       <span class="info-text">Email: {{ client.email }}</span>
     </a-flex>
     <a-flex class="card-actions">
-      <a-button class="action-btn delete" @click="removeClient(client.id)">
-        <span class="action-btn__text open"> Удалить</span>
-      </a-button>
-      <a-button class="action-btn open" @click="openClientDetails">
-        <span class="action-btn__text open"> Открыть</span>
-      </a-button>
+      <BaseButton text="Удалить" error @click="removeClient(client.id)" />
+      <BaseButton text="Открыть" success @click="openClientDetails" />
     </a-flex>
   </BaseContainer>
 </template>
@@ -69,45 +66,6 @@ const openClientDetails = () => {
 
   .card-actions {
     gap: 10px;
-
-    .action-btn {
-      width: fit-content;
-      height: fit-content;
-      padding: 5px 20px;
-      border-radius: 20px;
-
-      &__text {
-        font-size: 14px;
-      }
-
-      &.open {
-        border-color: #5faf20;
-        background-color: rgba($color: #5faf20, $alpha: 0.2);
-
-        .action-btn__text {
-          color: #5faf20;
-        }
-      }
-
-      &.delete {
-        border-color: #ff7c7c;
-        background-color: rgba($color: #ff7c7c, $alpha: 0.2);
-
-        .action-btn__text {
-          color: #ff7c7c;
-        }
-      }
-
-      &:hover {
-        &.open {
-          background-color: rgba($color: #5faf20, $alpha: 0.3);
-        }
-
-        &.delete {
-          background-color: rgba($color: #ff7c7c, $alpha: 0.3);
-        }
-      }
-    }
   }
 }
 </style>

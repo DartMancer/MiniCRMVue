@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from "vue-router";
 
 export const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
+    path: "/clients",
     name: "clients",
     meta: {
       titleKey: "CRM - Клиенты",
