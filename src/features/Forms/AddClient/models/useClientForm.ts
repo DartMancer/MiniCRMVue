@@ -7,8 +7,10 @@ import { ClientFormState } from "./ClientFormState";
 export const useClientForm = () => {
   const { addClient } = useClientsStore();
 
-  const formState = ref<ClientFormState>(defaultClientForm);
+  const formState = ref<ClientFormState>({ ...defaultClientForm });
   const loading = ref<boolean>(false);
+
+  const restoreForm = () => Object.assign(formState.value, defaultClientForm);
 
   const onFinish = (val: ClientFormState) => {
     loading.value = true;
@@ -23,7 +25,7 @@ export const useClientForm = () => {
       };
 
       addClient(client);
-      Object.assign(formState.value, defaultClientForm);
+      restoreForm();
     } finally {
       loading.value = false;
     }
@@ -33,5 +35,5 @@ export const useClientForm = () => {
     console.log("Error:", value);
   };
 
-  return { formState, loading, onFinish, onFinishFailed };
+  return { formState, loading, restoreForm, onFinish, onFinishFailed };
 };

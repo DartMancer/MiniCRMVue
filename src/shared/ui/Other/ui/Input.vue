@@ -4,6 +4,7 @@ const value = defineModel<string | undefined>("value", { required: true });
 defineProps<{
   name: string | string[];
   placeholder: string;
+  refName?: string;
   label?: string | null;
   form?: boolean;
   rules?: any;
@@ -13,6 +14,7 @@ defineProps<{
 <template>
   <a-form-item :name :label :rules>
     <a-input
+      :ref="refName"
       :class="['input', { form }]"
       v-model:value="value"
       :placeholder="placeholder"

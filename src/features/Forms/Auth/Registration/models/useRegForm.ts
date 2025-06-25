@@ -11,10 +11,10 @@ export const useRegForm = () => {
 
   const router = useRouter();
 
-  const formState = ref<RegistrationFormState>(defaultRegForm);
+  const formState = ref<RegistrationFormState>({ ...defaultRegForm });
   const loading = ref<boolean>(false);
   const options = ref<SelectOption[]>([
-    { value: "user", label: "Пользователь" },
+    { value: "manager", label: "Менеджер" },
     { value: "admin", label: "Администратор" },
   ]);
 

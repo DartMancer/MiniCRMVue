@@ -1,13 +1,14 @@
 import { defineStore } from "pinia";
-import { EditUser } from "../types";
-import { useUserApiMock } from "../composables";
-import { errorMessage, successMessage } from "@/shared/utils";
 import { useRouter } from "vue-router";
+import { errorMessage, successMessage } from "@/shared/utils";
 import { useSessionStore } from "@/entities/auth";
+import { useUserApiMock } from "../composables";
+import { EditUser } from "../types";
 
 export const useUserStore = defineStore("userStore", () => {
   const router = useRouter();
   const { user } = useSessionStore();
+
   const { updateUserApi, deleteUserApi } = useUserApiMock();
 
   const editUser = (data: EditUser): boolean => {

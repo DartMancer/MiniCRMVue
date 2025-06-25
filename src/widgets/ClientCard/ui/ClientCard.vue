@@ -31,8 +31,8 @@ const openClientDetails = () => {
       <span class="info-text">Email: {{ client.email }}</span>
     </a-flex>
     <a-flex class="card-actions">
-      <BaseButton text="Удалить" error @click="removeClient(client.id)" />
-      <BaseButton text="Открыть" success @click="openClientDetails" />
+      <BaseButton text="Удалить" error @click.stop="removeClient(client.id)" />
+      <BaseButton text="Открыть" success @click.stop="openClientDetails" />
     </a-flex>
   </BaseContainer>
 </template>

@@ -13,7 +13,7 @@ export const useLoginForm = () => {
   const router = useRouter();
 
   const formState = ref<LoginFormState>(
-    user.value ? toLoginForm(user.value) : defaultLoginForm
+    user.value ? toLoginForm(user.value) : { ...defaultLoginForm }
   );
   const loading = ref<boolean>(false);
 

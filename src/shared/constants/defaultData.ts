@@ -20,6 +20,5 @@ export const defaultLoginForm: LoginFormState = {
 export const defaultEditUserForm: EditUserFormState = {
   name: "",
   email: "",
-  password: "",
   role: null,
 };

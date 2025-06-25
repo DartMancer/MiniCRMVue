@@ -11,11 +11,11 @@ export const useAccountBody = () => {
   const { user } = storeToRefs(useSessionStore());
   const { editUser } = useUserStore();
 
-  const initialFormState = ref<EditUserFormState>(defaultEditUserForm);
-  const formState = ref<EditUserFormState>(defaultEditUserForm);
+  const initialFormState = ref<EditUserFormState>({ ...defaultEditUserForm });
+  const formState = ref<EditUserFormState>({ ...defaultEditUserForm });
   const loading = ref<boolean>(false);
   const options = ref<SelectOption[]>([
-    { value: "user", label: "Пользователь" },
+    { value: "manager", label: "Менеджер" },
     { value: "admin", label: "Администратор" },
   ]);
 

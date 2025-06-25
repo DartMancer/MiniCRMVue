@@ -5,7 +5,8 @@ import { BaseButton } from "@/shared/ui/Button";
 import { MailInput } from "@/widgets/MailInput";
 import { ClientFormState, useClientForm, validateRules } from "../models";
 
-const { formState, loading, onFinish, onFinishFailed } = useClientForm();
+const { formState, loading, restoreForm, onFinish, onFinishFailed } =
+  useClientForm();
 
 const emit = defineEmits<{ (e: "closeModal"): void }>();
 
@@ -17,6 +18,11 @@ const focusOnFirstInput = () => {
 
 const handleFinish = (val: ClientFormState) => {
   onFinish(val);
+  emit("closeModal");
+};
+
+const handleClose = () => {
+  restoreForm();
   emit("closeModal");
 };
 
@@ -34,7 +40,7 @@ defineExpose({ focusOnFirstInput });
   >
     <a-flex vertical>
       <Input
-        ref="nameInput"
+        refName="nameInput"
         v-model:value="formState.name"
         name="name"
         label="Имя клиента"
@@ -52,7 +58,7 @@ defineExpose({ focusOnFirstInput });
     </a-flex>
 
     <a-flex class="form-actions" justify="flex-end">
-      <BaseButton text="Отмена" @click="emit('closeModal')" error />
+      <BaseButton text="Отмена" @click="handleClose" error />
       <BaseButton
         text="Добавить"
         html-type="submit"

@@ -2,13 +2,11 @@ import type { RouteRecordRaw } from "vue-router";
 
 export const routes: Array<RouteRecordRaw> = [
   {
-    path: "/clients",
+    path: "/",
     name: "clients",
     meta: {
       titleKey: "CRM - Клиенты",
       layout: "main",
-      requiresAuth: true,
-      requiresRole: "admin",
     },
     component: () => import("@/pages/ClientsPage.vue"),
   },
@@ -18,8 +16,6 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       titleKey: "Детализация",
       layout: "main",
-      requiresAuth: true,
-      requiresRole: "admin",
     },
     component: () => import("@/pages/ClientDetailPage.vue"),
   },
