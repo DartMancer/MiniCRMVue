@@ -1,0 +1,75 @@
+<script lang="ts" setup>
+import { DeepReadonly } from "vue";
+import { useRouter } from "vue-router";
+import { BaseButton } from "@/shared/ui/Button";
+import { BaseContainer } from "@/shared/ui/Other";
+import { User } from "@/entities/auth";
+import { useManagersStore } from "@/entities/managers";
+import { DeleteManagerTrigger } from "@/features/Manager";
+
+type ReadonlyManager = DeepReadonly<User>;
+
+const { managersClientsCount } = useManagersStore();
+
+const { manager } = defineProps<{ manager: ReadonlyManager }>();
+
+const router = useRouter();
+
+const openManagerDetails = () => {
+  router.push({ name: "manager", params: { id: manager.id } });
+};
+</script>
+
+<template>
+  <BaseContainer
+    class="base-container"
+    @click="openManagerDetails"
+    full-w
+    shadow
+  >
+    <span class="title">{{ manager.name }} </span>
+    <a-flex class="card-info" vertical>
+      <span class="info-text">Email: {{ manager.email }}</span>
+      <span class="info-text">
+        Количество клиентов: {{ managersClientsCount(manager.id) }}
+      </span>
+    </a-flex>
+    <a-flex class="card-actions">
+      <DeleteManagerTrigger :managerId="manager.id" />
+      <BaseButton text="Открыть" success @click.stop="openManagerDetails" />
+    </a-flex>
+  </BaseContainer>
+</template>
+
+<style lang="scss" scoped>
+.base-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  height: fit-content;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: var(--element-color);
+  box-shadow: var(--shadow);
+
+  .title {
+    font-size: 20px;
+  }
+
+  .card-info {
+    width: 100%;
+    gap: 10px;
+
+    .info-text {
+      font-size: 16px;
+    }
+  }
+
+  .card-actions {
+    gap: 10px;
+  }
+}
+</style>

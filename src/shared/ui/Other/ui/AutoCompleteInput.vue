@@ -5,6 +5,7 @@ const props = defineProps<{
   name: string | string[];
   placeholder: string;
   options: any;
+  disabled?: boolean;
   label?: any;
   rules?: any;
   form?: boolean;
@@ -34,9 +35,10 @@ const handleSearch = (query: string) => {
     >
       <template #default>
         <a-input
-          :class="['input', { form }]"
           v-model:value="value"
+          :class="['input', { form }]"
           :placeholder="props.placeholder"
+          :disabled
           allowClear
         />
       </template>

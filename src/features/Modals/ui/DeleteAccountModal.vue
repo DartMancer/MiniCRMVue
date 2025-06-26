@@ -24,6 +24,7 @@ const open = defineModel<boolean>("open", { required: true });
 .modal-body {
   width: 100%;
   gap: 30px;
+  padding: 30px 60px;
 }
 
 .title {

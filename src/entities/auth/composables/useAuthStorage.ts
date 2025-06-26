@@ -15,7 +15,7 @@ export const useAuthStorage = () => {
       };
     }
 
-    users.value.push(data);
+    users.value = [...users.value, data];
     return { success: true };
   };
 

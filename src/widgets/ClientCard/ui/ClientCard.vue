@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { DeepReadonly } from "vue";
 import { useRouter } from "vue-router";
-import { BaseContainer } from "@/shared/ui/Other";
-import { Client, useClientsStore } from "@/entities/clients";
 import { BaseButton } from "@/shared/ui/Button";
+import { BaseContainer } from "@/shared/ui/Other";
+import { useRoles } from "@/entities/user";
+import { Client, useClientsStore } from "@/entities/clients";
 
 type ReadonlyClient = DeepReadonly<Client>;
+
+const { canViewClient } = useRoles();
 
 const { removeClient } = useClientsStore();
 
@@ -20,6 +23,7 @@ const openClientDetails = () => {
 
 <template>
   <BaseContainer
+    v-if="canViewClient(client.managerId)"
     class="base-container"
     @click="openClientDetails"
     full-w

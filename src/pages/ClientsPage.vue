@@ -2,8 +2,7 @@
 import { storeToRefs } from "pinia";
 import { BaseContainer } from "@/shared/ui/Other";
 import { useClientsStore } from "@/entities/clients";
-import { ClientsCount } from "@/features/ClientsCount";
-import { AddClientTrigger } from "@/features/AddClient";
+import { ClientsCount, AddClientTrigger } from "@/features/Client";
 import { ClientCard } from "@/widgets/ClientCard";
 
 const { clients } = storeToRefs(useClientsStore());

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { BaseButton } from "@/shared/ui/Button";
-import { Input, PasswordInput, Select } from "@/shared/ui/Other";
+import { Input, PasswordInput } from "@/shared/ui/Other";
 import { MailInput } from "@/widgets/MailInput";
 import { useRegForm, validateRules } from "../models";
 
-const { formState, loading, options, onFinish, onFinishFailed, routeLogin } =
+const { formState, loading, onFinish, onFinishFailed, routeLogin } =
   useRegForm();
 </script>
 
@@ -38,14 +38,6 @@ const { formState, loading, options, onFinish, onFinishFailed, routeLogin } =
         name="password"
         label="Пароль"
         placeholder="Укажите Ваш пароль"
-        form
-      />
-      <Select
-        v-model:value="formState.role"
-        :options="options"
-        name="role"
-        label="Роль"
-        placeholder="Выберите роль"
         form
       />
 

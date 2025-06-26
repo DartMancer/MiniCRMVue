@@ -6,6 +6,7 @@ defineProps<{
   placeholder: string;
   refName?: string;
   label?: string | null;
+  disabled?: boolean;
   form?: boolean;
   rules?: any;
 }>();
@@ -14,10 +15,11 @@ defineProps<{
 <template>
   <a-form-item :name :label :rules>
     <a-input
+      v-model:value="value"
       :ref="refName"
       :class="['input', { form }]"
-      v-model:value="value"
-      :placeholder="placeholder"
+      :placeholder
+      :disabled
       allow-clear
     />
   </a-form-item>

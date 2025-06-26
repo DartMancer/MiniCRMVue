@@ -1,10 +1,9 @@
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "vue-router";
 import { defaultRegForm } from "@/shared/constants";
-import { SelectOption } from "@/shared/types";
 import { StoredUser, useSessionStore } from "@/entities/auth";
 import { RegistrationFormState } from "./RegistrationFormState";
-import { useRouter } from "vue-router";
 
 export const useRegForm = () => {
   const { registration } = useSessionStore();
@@ -13,10 +12,6 @@ export const useRegForm = () => {
 
   const formState = ref<RegistrationFormState>({ ...defaultRegForm });
   const loading = ref<boolean>(false);
-  const options = ref<SelectOption[]>([
-    { value: "manager", label: "Менеджер" },
-    { value: "admin", label: "Администратор" },
-  ]);
 
   const onFinish = (val: RegistrationFormState) => {
     loading.value = true;
@@ -26,7 +21,7 @@ export const useRegForm = () => {
         name: val.name,
         email: val.email,
         password: val.password,
-        role: val.role!,
+        role: "manager",
       };
 
       if (registration(user)) {
@@ -44,5 +39,5 @@ export const useRegForm = () => {
 
   const routeLogin = () => router.push("/login");
 
-  return { formState, loading, options, onFinish, onFinishFailed, routeLogin };
+  return { formState, loading, onFinish, onFinishFailed, routeLogin };
 };

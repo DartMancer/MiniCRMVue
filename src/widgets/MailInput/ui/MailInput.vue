@@ -9,6 +9,7 @@ const value = defineModel<string>("value", { required: true });
 defineProps<{
   name: string | string[];
   label?: string;
+  disabled?: boolean;
   placeholder?: string;
   form?: boolean;
 }>();
@@ -26,8 +27,9 @@ defineProps<{
     form
   >
     <template #option="{ value: val }">
-      {{ val.split("@")[0] }} @
-      <span style="font-weight: bold">{{ val.split("@")[1] }}</span>
+      {{ val.split("@")[0] }}@<span style="font-weight: bold">
+        {{ val.split("@")[1] }}
+      </span>
     </template>
   </AutoCompleteInput>
 </template>

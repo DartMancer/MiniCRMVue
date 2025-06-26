@@ -1,12 +1,9 @@
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
+import { BackButton } from "@/shared/ui/Button";
 import { BaseContainer } from "@/shared/ui/Other";
-import { AddTaskForm, TaskForm } from "@/features/ClientTasks";
-import {
-  ClientDetailContact,
-  ClientDetailHeader,
-  ClientDetailInfo,
-} from "@/widgets/ClientDetail";
+import { AddTaskForm, TaskForm } from "@/features/Client";
+import { ClientDetailContact, ClientDetailInfo } from "@/widgets/ClientDetail";
 
 const route = useRoute();
 
@@ -15,7 +12,7 @@ const clientId = route.params.id.toString();
 
 <template>
   <a-flex class="client-page" vertical>
-    <ClientDetailHeader />
+    <BackButton />
     <a-flex class="client-info-container" align="center">
       <ClientDetailInfo :clientId="clientId" />
       <ClientDetailContact :clientId="clientId" />
@@ -33,11 +30,12 @@ const clientId = route.params.id.toString();
 .client-page {
   width: 100%;
   gap: 40px;
+  padding-top: 40px;
 }
 
 .base-container {
   flex-direction: column;
-  width: 45%;
+  width: 45% !important;
   align-items: start;
   padding: 20px 40px;
 }

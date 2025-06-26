@@ -10,6 +10,7 @@ defineProps<{
   name: string | string[];
   placeholder: string;
   options: SelectOption[] | ReadonlyOptions;
+  disabled?: boolean;
   label?: string | null;
   form?: boolean;
   rules?: any;
@@ -21,10 +22,11 @@ const popupContainer = () => document.querySelector(".custom-select");
 <template>
   <a-form-item :name :label :rules>
     <a-select
-      :class="['custom-select', { form }]"
       v-model:value="value"
-      :options="options"
-      :placeholder="placeholder"
+      :class="['custom-select', { form }]"
+      :options
+      :placeholder
+      :disabled
       :getPopupContainer="popupContainer"
     />
   </a-form-item>

@@ -2,10 +2,10 @@
 import { computed } from "vue";
 import { useClientsStore } from "@/entities/clients";
 
-const { getClient } = useClientsStore();
+const { getClientById } = useClientsStore();
 
 const { clientId } = defineProps<{ clientId: string }>();
-const currentClient = computed(() => getClient(clientId.toString()));
+const currentClient = computed(() => getClientById(clientId.toString()));
 </script>
 
 <template>

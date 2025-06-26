@@ -1,11 +1,26 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { Input, Select } from "@/shared/ui/Other";
+import { BaseButton } from "@/shared/ui/Button";
+import { useRoles } from "@/entities/user";
+import { ChangeOwner } from "@/features/Modals";
 import { MailInput } from "@/widgets/MailInput";
 import { useAccountBody } from "../model";
-import { BaseButton } from "@/shared/ui/Button";
 
-const { formState, options, loading, isUpdated, onFinish, onFinishFailed } =
-  useAccountBody();
+const { canEditUserRole } = useRoles();
+
+const open = ref<boolean>(false);
+
+const {
+  formState,
+  options,
+  loading,
+  isUpdated,
+  initialFormUpdate,
+  resetForm,
+  onFinish,
+  onFinishFailed,
+} = useAccountBody(open);
 </script>
 
 <template>
@@ -29,9 +44,11 @@ const { formState, options, loading, isUpdated, onFinish, onFinishFailed } =
       label="Почта"
       placeholder="Введите почту"
     />
+
     <Select
       v-model:value="formState.role"
       :options="options"
+      :disabled="!canEditUserRole.value"
       name="role"
       label="Роль"
       placeholder="Укажите роль"
@@ -45,6 +62,13 @@ const { formState, options, loading, isUpdated, onFinish, onFinishFailed } =
       :disabled="!isUpdated"
       success
       full-w
+    />
+
+    <ChangeOwner
+      v-model:open="open"
+      :role="formState.role"
+      @update="initialFormUpdate"
+      @reset="resetForm"
     />
   </a-form>
 </template>
