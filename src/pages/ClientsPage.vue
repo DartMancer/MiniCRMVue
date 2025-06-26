@@ -1,18 +1,21 @@
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
 import { BaseContainer } from "@/shared/ui/Other";
-import { useClientsStore } from "@/entities/clients";
+import { Search } from "@/features/Search";
 import { ClientsCount, AddClientTrigger } from "@/features/Client";
+import { useFilteredClients } from "@/features/Search";
 import { ClientCard } from "@/widgets/ClientCard";
 
-const { clients } = storeToRefs(useClientsStore());
+const { filtered } = useFilteredClients();
 </script>
 
 <template>
   <a-flex class="clients-page" align="center" vertical>
-    <BaseContainer class="base-container">
-      <span class="title">CRM - Клиенты</span>
-    </BaseContainer>
+    <a-flex gap="20" vertical>
+      <BaseContainer class="base-container">
+        <span class="title">CRM - Клиенты</span>
+      </BaseContainer>
+      <Search />
+    </a-flex>
 
     <a-flex class="page-info-container" justify="space-between" align="center">
       <ClientsCount />
@@ -20,7 +23,7 @@ const { clients } = storeToRefs(useClientsStore());
     </a-flex>
 
     <a-flex class="clients-list">
-      <ClientCard v-for="client in clients" :client="client" />
+      <ClientCard v-for="client in filtered" :client="client" />
     </a-flex>
   </a-flex>
 </template>
