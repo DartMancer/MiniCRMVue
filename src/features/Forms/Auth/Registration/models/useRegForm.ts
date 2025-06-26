@@ -4,6 +4,11 @@ import { useRouter } from "vue-router";
 import { defaultRegForm } from "@/shared/constants";
 import { StoredUser, useSessionStore } from "@/entities/auth";
 import { RegistrationFormState } from "./RegistrationFormState";
+import { PickKeysWithType, RemoveKeys } from "@/shared/utils";
+
+type RawKeys = PickKeysWithType<StoredUser, string>;
+
+type FinalKeys = RemoveKeys<RawKeys, "id" | "role">;
 
 export const useRegForm = () => {
   const { registration } = useSessionStore();
@@ -12,6 +17,12 @@ export const useRegForm = () => {
 
   const formState = ref<RegistrationFormState>({ ...defaultRegForm });
   const loading = ref<boolean>(false);
+
+  const regPlaceholders: Record<FinalKeys, string> = {
+    name: "Укажите Ваше имя",
+    email: "Укажите Вашу почту",
+    password: "Укажите Ваш пароль",
+  };
 
   const onFinish = (val: RegistrationFormState) => {
     loading.value = true;
@@ -39,5 +50,12 @@ export const useRegForm = () => {
 
   const routeLogin = () => router.push("/login");
 
-  return { formState, loading, onFinish, onFinishFailed, routeLogin };
+  return {
+    formState,
+    loading,
+    regPlaceholders,
+    onFinish,
+    onFinishFailed,
+    routeLogin,
+  };
 };

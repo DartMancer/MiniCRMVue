@@ -4,8 +4,14 @@ import { BaseButton } from "@/shared/ui/Button";
 import { MailInput } from "@/widgets/MailInput";
 import { useLoginForm, validateRules } from "../models";
 
-const { formState, loading, onFinish, onFinishFailed, routeReg } =
-  useLoginForm();
+const {
+  formState,
+  loading,
+  loginPlaceholders,
+  onFinish,
+  onFinishFailed,
+  routeReg,
+} = useLoginForm();
 </script>
 
 <template>
@@ -22,14 +28,14 @@ const { formState, loading, onFinish, onFinishFailed, routeReg } =
         v-model:value="formState.email"
         name="email"
         label="Почта"
-        placeholder="Укажите Вашу почту"
+        :placeholder="loginPlaceholders.email"
         form
       />
       <PasswordInput
         v-model:value="formState.password"
         name="password"
         label="Пароль"
-        placeholder="Укажите Ваш пароль"
+        :placeholder="loginPlaceholders.password"
         form
       />
 

@@ -5,8 +5,14 @@ import { BaseButton } from "@/shared/ui/Button";
 import { MailInput } from "@/widgets/MailInput";
 import { ClientFormState, useClientForm, validateRules } from "../models";
 
-const { formState, loading, restoreForm, onFinish, onFinishFailed } =
-  useClientForm();
+const {
+  formState,
+  loading,
+  clientPlaceholders,
+  restoreForm,
+  onFinish,
+  onFinishFailed,
+} = useClientForm();
 
 const emit = defineEmits<{ (e: "closeModal"): void }>();
 
@@ -44,7 +50,7 @@ defineExpose({ focusOnFirstInput });
         v-model:value="formState.name"
         name="name"
         label="Имя клиента"
-        placeholder="Введите имя клиента"
+        :placeholder="clientPlaceholders.name"
         form
       />
 
@@ -52,7 +58,7 @@ defineExpose({ focusOnFirstInput });
         v-model:value="formState.email"
         name="email"
         label="Почта клиента"
-        placeholder="Введите почту клиента"
+        :placeholder="clientPlaceholders.email"
         form
       />
     </a-flex>

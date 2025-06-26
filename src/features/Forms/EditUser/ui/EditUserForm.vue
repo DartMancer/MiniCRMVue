@@ -17,6 +17,7 @@ const {
   loading,
   isUpdated,
   initialFormUpdate,
+  accountPlaceholders,
   resetForm,
   onFinish,
   onFinishFailed,
@@ -35,23 +36,23 @@ const {
       v-model:value="formState.name"
       name="name"
       label="Имя"
-      placeholder="Введите имя"
+      :placeholder="accountPlaceholders.name"
       form
     />
     <MailInput
       v-model:value="formState.email"
       name="email"
       label="Почта"
-      placeholder="Введите почту"
+      :placeholder="accountPlaceholders.email"
     />
 
     <Select
       v-model:value="formState.role"
-      :options="options"
-      :disabled="!canEditUserRole.value"
       name="role"
       label="Роль"
-      placeholder="Укажите роль"
+      :options="options"
+      :disabled="!canEditUserRole.value"
+      :placeholder="accountPlaceholders.role"
       form
     />
 

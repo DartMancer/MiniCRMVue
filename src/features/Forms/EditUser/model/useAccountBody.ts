@@ -10,6 +10,11 @@ import {
 import { useSessionStore } from "@/entities/auth";
 import { EditUser, useRoles, useUserStore } from "@/entities/user";
 import { EditUserFormState } from "./EditUserFormState";
+import { PickKeysWithType, RemoveKeys } from "@/shared/utils";
+
+type RawKeys = PickKeysWithType<EditUser, string>;
+
+type FinalKeys = RemoveKeys<RawKeys, "id" | "password">;
 
 export const useAccountBody = (open: Ref<boolean>) => {
   const { user } = storeToRefs(useSessionStore());
@@ -26,6 +31,12 @@ export const useAccountBody = (open: Ref<boolean>) => {
   const isUpdated = computed(
     () => !isEqual(initialFormState.value, formState.value)
   );
+
+  const accountPlaceholders: Record<FinalKeys, string> = {
+    name: "Введите имя",
+    email: "Введите почту",
+    role: "Укажите роль",
+  };
 
   const handleEdit = (): boolean => {
     if (!user.value) return false;
@@ -86,6 +97,7 @@ export const useAccountBody = (open: Ref<boolean>) => {
     initialFormState,
     options: readonly(options),
     loading: readonly(loading),
+    accountPlaceholders,
     handleEdit,
     initialFormUpdate,
     resetForm,

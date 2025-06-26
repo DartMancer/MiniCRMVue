@@ -4,8 +4,14 @@ import { Input, PasswordInput } from "@/shared/ui/Other";
 import { MailInput } from "@/widgets/MailInput";
 import { useRegForm, validateRules } from "../models";
 
-const { formState, loading, onFinish, onFinishFailed, routeLogin } =
-  useRegForm();
+const {
+  formState,
+  loading,
+  regPlaceholders,
+  onFinish,
+  onFinishFailed,
+  routeLogin,
+} = useRegForm();
 </script>
 
 <template>
@@ -23,21 +29,21 @@ const { formState, loading, onFinish, onFinishFailed, routeLogin } =
         v-model:value="formState.name"
         name="name"
         label="Имя"
-        placeholder="Укажите Ваше имя"
+        :placeholder="regPlaceholders.name"
         form
       />
       <MailInput
         v-model:value="formState.email"
         name="email"
         label="Почта"
-        placeholder="Укажите Вашу почту"
+        :placeholder="regPlaceholders.email"
         form
       />
       <PasswordInput
         v-model:value="formState.password"
         name="password"
         label="Пароль"
-        placeholder="Укажите Ваш пароль"
+        :placeholder="regPlaceholders.password"
         form
       />
 

@@ -1,9 +1,17 @@
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { defaultClientForm } from "@/shared/constants";
+import { PickKeysWithType, RemoveKeys } from "@/shared/utils";
 import { useSessionStore } from "@/entities/auth";
 import { Client, useClientsStore } from "@/entities/clients";
 import { ClientFormState } from "./ClientFormState";
+
+type RawKeys = PickKeysWithType<Client, string>;
+
+type FinalKeys = RemoveKeys<
+  RawKeys & string,
+  "id" | "managerId" | "status" | "phone"
+>;
 
 export const useClientForm = () => {
   const { user } = useSessionStore();
@@ -11,6 +19,11 @@ export const useClientForm = () => {
 
   const formState = ref<ClientFormState>({ ...defaultClientForm });
   const loading = ref<boolean>(false);
+
+  const clientPlaceholders: Record<FinalKeys, string> = {
+    name: "Введите имя клиента",
+    email: "Введите почту клиента",
+  };
 
   const restoreForm = () => Object.assign(formState.value, defaultClientForm);
 
@@ -38,5 +51,12 @@ export const useClientForm = () => {
     console.log("Error:", value);
   };
 
-  return { formState, loading, restoreForm, onFinish, onFinishFailed };
+  return {
+    formState,
+    loading,
+    clientPlaceholders,
+    restoreForm,
+    onFinish,
+    onFinishFailed,
+  };
 };

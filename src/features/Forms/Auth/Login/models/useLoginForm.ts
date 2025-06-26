@@ -2,9 +2,14 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { defaultLoginForm } from "@/shared/constants";
-import { LoginUser, useSessionStore } from "@/entities/auth";
-import { LoginFormState } from "./LoginFormState";
+import { PickKeysWithType, RemoveKeys } from "@/shared/utils";
+import { LoginUser, StoredUser, useSessionStore } from "@/entities/auth";
 import { toLoginForm } from "./loginFormAdapter";
+import { LoginFormState } from "./LoginFormState";
+
+type RawKeys = PickKeysWithType<StoredUser, string>;
+
+type FinalKeys = RemoveKeys<RawKeys, "id" | "name" | "role">;
 
 export const useLoginForm = () => {
   const { user } = storeToRefs(useSessionStore());
@@ -16,6 +21,11 @@ export const useLoginForm = () => {
     user.value ? toLoginForm(user.value) : { ...defaultLoginForm }
   );
   const loading = ref<boolean>(false);
+
+  const loginPlaceholders: Record<FinalKeys, string> = {
+    email: "Укажите Вашу почту",
+    password: "Укажите Ваш пароль",
+  };
 
   const onFinish = (val: LoginFormState) => {
     loading.value = true;
@@ -40,5 +50,12 @@ export const useLoginForm = () => {
 
   const routeReg = () => router.push("/registration");
 
-  return { formState, loading, onFinish, onFinishFailed, routeReg };
+  return {
+    formState,
+    loading,
+    loginPlaceholders,
+    onFinish,
+    onFinishFailed,
+    routeReg,
+  };
 };

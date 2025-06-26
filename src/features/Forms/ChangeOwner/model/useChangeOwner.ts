@@ -1,7 +1,7 @@
 import { computed, onMounted, readonly, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { Role, SelectOption } from "@/shared/types";
-import { usersToOptions } from "@/shared/utils/toOptions";
+import { usersToOptions } from "@/shared/utils";
 import { defaultChangeOwnerForm } from "@/shared/constants";
 import { useSessionStore } from "@/entities/auth";
 import { useUserApiMock, useUserStore } from "@/entities/user";
