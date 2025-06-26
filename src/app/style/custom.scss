@@ -31,4 +31,24 @@
     background-color: var(--background-color) !important;
     box-shadow: var(--shadow);
   }
+
+  .ant-popover-arrow {
+    &::before {
+      background-color: transparent;
+    }
+
+    &::after {
+      box-shadow: none;
+    }
+  }
+
+  .ant-popover-inner {
+    width: fit-content;
+    padding: 0;
+    border-radius: 20px;
+    background-color: transparent;
+    backdrop-filter: blur(1px);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 4px 20px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(255, 255, 255, 0.3);
+  }
 }

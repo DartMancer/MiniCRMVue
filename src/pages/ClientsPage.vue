@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { BaseContainer } from "@/shared/ui/Other";
-import { Search } from "@/features/Search";
-import { ClientsCount, AddClientTrigger } from "@/features/Client";
-import { useFiltered } from "@/features/Search";
+import { Search, useFiltered } from "@/features/Search";
+import {
+  ClientsCount,
+  AddClientTrigger,
+  ImportExportClient,
+} from "@/features/Client";
 import { ClientCard } from "@/widgets/ClientCard";
 
 const { useClientsSearch } = useFiltered();
@@ -20,7 +23,10 @@ const { searchClients, filteredClients } = useClientsSearch();
 
     <a-flex class="page-info-container" justify="space-between" align="center">
       <ClientsCount />
-      <AddClientTrigger />
+      <a-flex class="page-info-actions" align="center">
+        <AddClientTrigger />
+        <ImportExportClient />
+      </a-flex>
     </a-flex>
 
     <a-flex class="clients-list">
@@ -45,6 +51,10 @@ const { searchClients, filteredClients } = useClientsSearch();
 
 .page-info-container {
   width: 100%;
+
+  .page-info-actions {
+    gap: 10px;
+  }
 }
 
 .clients-list {

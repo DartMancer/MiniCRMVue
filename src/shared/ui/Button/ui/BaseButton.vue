@@ -2,17 +2,21 @@
 defineProps<{
   text: string;
   icon?: any;
-  iconMode?: boolean;
-  success?: boolean;
   error?: boolean;
-  disabled?: boolean;
   fullW?: boolean;
+  success?: boolean;
+  primary?: boolean;
+  disabled?: boolean;
+  iconMode?: boolean;
 }>();
 </script>
 
 <template>
   <a-button
-    :class="['base-btn', { success, error, disabled, 'icon-mode': iconMode }]"
+    :class="[
+      'base-btn',
+      { success, error, disabled, 'icon-mode': iconMode, primary },
+    ]"
     :style="{ width: fullW ? '100%' : 'fit-content' }"
     :disabled
   >
@@ -146,6 +150,46 @@ defineProps<{
 
       .base-btn__text {
         color: rgba($color: #000000, $alpha: 0.5);
+      }
+    }
+  }
+
+  &.primary {
+    border-color: rgba($color: #000000, $alpha: 0.7);
+    background-color: var(--primary-color);
+
+    .base-btn__text {
+      color: rgba($color: #000000, $alpha: 0.7);
+    }
+
+    svg {
+      stroke: rgba($color: #000000, $alpha: 0.7);
+      transition: 0.2s ease-in-out;
+    }
+
+    &:hover {
+      border-color: black;
+      background-color: var(--hover-primary-color);
+
+      .base-btn__text {
+        color: black;
+      }
+
+      svg {
+        stroke: black;
+      }
+    }
+
+    &:active {
+      border-color: black;
+      background-color: var(--hover-primary-color);
+
+      .base-btn__text {
+        color: black;
+      }
+
+      svg {
+        stroke: black;
       }
     }
   }
