@@ -23,6 +23,20 @@ export const useClientsStore = defineStore("clients", () => {
     clients.value = [...clients.value, client];
   };
 
+  const setClients = (imported: Client[]) => {
+    const existingIds = new Set(clients.value.map((c) => c.id));
+    const newClients = imported.filter((c) => !existingIds.has(c.id));
+
+    if (newClients.length > 0) {
+      clients.value = [...clients.value, ...newClients];
+    }
+
+    return {
+      added: newClients.length,
+      total: imported.length,
+    };
+  };
+
   const removeClient = (id: string) => {
     clients.value = clients.value.filter((c) => c.id !== id);
   };
@@ -39,6 +53,7 @@ export const useClientsStore = defineStore("clients", () => {
     clientCount,
     getClientById,
     addClient,
+    setClients,
     removeClient,
     addTask,
   };

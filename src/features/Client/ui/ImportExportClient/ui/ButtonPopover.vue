@@ -1,12 +1,30 @@
 <script setup lang="ts">
 import { BaseButton } from "@/shared/ui/Button";
+import { useClientImportExport } from "../models";
+
+const open = defineModel<boolean>("open", { required: true });
+const { exportClients, customRequest } = useClientImportExport(open);
 </script>
 
 <template>
   <a-flex vertical>
-    <BaseButton class="base-btn top title" text="Импорт" full-w />
+    <a-upload
+      class="upload"
+      name="file"
+      accept=".json"
+      :showUploadList="false"
+      :maxCount="1"
+      :customRequest="customRequest"
+    >
+      <BaseButton class="base-btn top title" text="Импорт" full-w />
+    </a-upload>
     <a-divider />
-    <BaseButton class="base-btn btm title" text="Экспорт" full-w />
+    <BaseButton
+      class="base-btn btm title"
+      text="Экспорт"
+      @click="exportClients"
+      full-w
+    />
   </a-flex>
 </template>
 
@@ -36,6 +54,10 @@ import { BaseButton } from "@/shared/ui/Button";
     box-shadow: none;
     transform: none;
   }
+}
+
+:deep(.ant-upload-select) {
+  width: 100%;
 }
 
 :deep(.ant-divider-horizontal) {

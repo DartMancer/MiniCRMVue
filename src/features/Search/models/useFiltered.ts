@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useSearchList } from "@/shared/composables";
 import { useClientsStore } from "@/entities/clients";
@@ -40,6 +40,8 @@ export const useFiltered = () => {
       "name",
       "email",
     ]);
+
+    watch(clients, () => (clientsF.value = [...clients.value]));
 
     return { searchClients, filteredClients };
   };

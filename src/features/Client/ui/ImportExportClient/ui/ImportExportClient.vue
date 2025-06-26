@@ -10,9 +10,9 @@ const toggle = () => (open.value = !open.value);
 </script>
 
 <template>
-  <a-popover placement="bottomRight" trigger="click">
+  <a-popover v-model:open="open" placement="bottomRight" trigger="click">
     <template #content>
-      <ButtonPopover />
+      <ButtonPopover v-model:open="open" />
     </template>
 
     <BaseButton
