@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { Input } from "@/shared/ui/Other";
-import { useSearch } from "../models";
 
-const { value } = useSearch();
+const value = defineModel<string>("value", { required: true });
 </script>
 
 <template>

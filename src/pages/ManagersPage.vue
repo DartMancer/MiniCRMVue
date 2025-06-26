@@ -1,18 +1,23 @@
 <script lang="ts" setup>
 import { BaseContainer } from "@/shared/ui/Other";
-import { useUserApiMock } from "@/entities/user";
 import { ManagersCount } from "@/features/Manager";
+import { Search, useFiltered } from "@/features/Search";
 import { ManagerCard } from "@/widgets/ManagerCard";
 
-const { getAdmins, getManagers } = useUserApiMock();
+const { useManagerSearch, useAdminsSearch } = useFiltered();
+const { searchAdmins, filteredAdmins } = useAdminsSearch();
+const { searchManagers, filteredManagers } = useManagerSearch();
 </script>
 
 <template>
   <a-flex class="managers-page" vertical>
     <a-flex class="managers-section" align="center" vertical>
-      <BaseContainer class="base-container">
-        <span class="title">CRM - Администраторы</span>
-      </BaseContainer>
+      <a-flex gap="20" vertical>
+        <BaseContainer class="base-container">
+          <span class="title">CRM - Администраторы</span>
+        </BaseContainer>
+        <Search v-model:value="searchAdmins" />
+      </a-flex>
 
       <a-flex
         class="page-info-container"
@@ -23,14 +28,17 @@ const { getAdmins, getManagers } = useUserApiMock();
       </a-flex>
 
       <a-flex class="clients-list">
-        <ManagerCard v-for="admins in getAdmins" :manager="admins" />
+        <ManagerCard v-for="admins in filteredAdmins" :manager="admins" />
       </a-flex>
     </a-flex>
     <a-divider />
     <a-flex class="managers-section" align="center" vertical>
-      <BaseContainer class="base-container">
-        <span class="title">CRM - Менеджеры</span>
-      </BaseContainer>
+      <a-flex gap="20" vertical>
+        <BaseContainer class="base-container">
+          <span class="title">CRM - Менеджеры</span>
+        </BaseContainer>
+        <Search v-model:value="searchManagers" />
+      </a-flex>
 
       <a-flex
         class="page-info-container"
@@ -41,7 +49,7 @@ const { getAdmins, getManagers } = useUserApiMock();
       </a-flex>
 
       <a-flex class="clients-list">
-        <ManagerCard v-for="manager in getManagers" :manager="manager" />
+        <ManagerCard v-for="manager in filteredManagers" :manager="manager" />
       </a-flex>
     </a-flex>
   </a-flex>

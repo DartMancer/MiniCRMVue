@@ -2,10 +2,11 @@
 import { BaseContainer } from "@/shared/ui/Other";
 import { Search } from "@/features/Search";
 import { ClientsCount, AddClientTrigger } from "@/features/Client";
-import { useFilteredClients } from "@/features/Search";
+import { useFiltered } from "@/features/Search";
 import { ClientCard } from "@/widgets/ClientCard";
 
-const { filtered } = useFilteredClients();
+const { useClientsSearch } = useFiltered();
+const { searchClients, filteredClients } = useClientsSearch();
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const { filtered } = useFilteredClients();
       <BaseContainer class="base-container">
         <span class="title">CRM - Клиенты</span>
       </BaseContainer>
-      <Search />
+      <Search v-model:value="searchClients" />
     </a-flex>
 
     <a-flex class="page-info-container" justify="space-between" align="center">
@@ -23,7 +24,7 @@ const { filtered } = useFilteredClients();
     </a-flex>
 
     <a-flex class="clients-list">
-      <ClientCard v-for="client in filtered" :client="client" />
+      <ClientCard v-for="client in filteredClients" :client="client" />
     </a-flex>
   </a-flex>
 </template>

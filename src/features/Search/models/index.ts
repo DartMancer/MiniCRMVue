@@ -1,2 +1,1 @@
-export * from "./useFilteredClients";
-export * from "./useSearch";
+export * from "./useFiltered";
